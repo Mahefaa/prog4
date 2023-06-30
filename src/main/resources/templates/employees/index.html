@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Employees</title>
+    <script th:inline="javascript">
+        function redirectToForm() {
+            window.location.href = "/employees/form";
+        }
+    </script>
+</head>
+<body>
+<header>Here is the list of the employees</header>
+<main>
+    <button onclick="redirectToForm()">Create employee</button>
+    <table>
+        <thead>
+        <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Birth Date</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.firstName}"></td>
+            <td th:text="${employee.lastName}"></td>
+            <td th:text="${employee.birthDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
