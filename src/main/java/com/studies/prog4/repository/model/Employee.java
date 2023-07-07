@@ -28,4 +28,5 @@ public class Employee implements Serializable {
   private String firstName;
   private String lastName;
   private LocalDate birthdate;
+  private String profilePicture;
 }

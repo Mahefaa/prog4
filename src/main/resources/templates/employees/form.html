@@ -9,11 +9,13 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #333;
             color: #fff;
             padding: 20px;
         }
+
         main {
             max-width: 600px;
             margin: 20px auto;
@@ -22,20 +24,25 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
         form {
             margin-top: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         table td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
+
         label {
             font-weight: bold;
         }
+
         input[type="text"],
         input[type="date"] {
             width: 100%;
@@ -43,6 +50,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
         button {
             padding: 10px 20px;
             background-color: #333;
@@ -52,6 +60,19 @@
             cursor: pointer;
         }
     </style>
+    <script>
+        function convertToBase64(input) {
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                var base64Data = reader.result;
+                document.getElementById('base64Output').value = base64Data;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
 </head>
 <body>
 <header>Add new employee</header>
@@ -69,6 +90,13 @@
             <tr>
                 <td><label>Birth Date</label></td>
                 <td><input type="date" th:field="*{birthDate}"/></td>
+            </tr>
+            <tr>
+                <td><label>Profile Picture</label></td>
+                <td>
+                    <input type="file" id="profilePictureInput" onchange="convertToBase64(this)">
+                    <input type="hidden" id="base64Output" th:field="*{profilePicture}"/>
+                </td>
             </tr>
         </table>
         <button type="submit">Enregistrer</button>
