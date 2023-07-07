@@ -3,6 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>List of Employees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+    </style>
     <script th:inline="javascript">
         function redirectToForm() {
             window.location.href = "/employees/form";
@@ -10,15 +53,15 @@
     </script>
 </head>
 <body>
-<header>Here is the list of the employees</header>
+<header>Here is the list of employees</header>
 <main>
     <button onclick="redirectToForm()">Create employee</button>
     <table>
         <thead>
         <tr>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Birth Date</td>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Birth Date</th>
         </tr>
         </thead>
         <tbody>
