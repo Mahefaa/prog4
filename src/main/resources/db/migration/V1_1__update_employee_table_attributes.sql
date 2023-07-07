@@ -1,9 +1,9 @@
 CREATE
 EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE SEQUENCE IF NOT EXISTS employee_sequence START WITH 1;
+CREATE SEQUENCE employee_sequence START WITH 1;
 
-CREATE TABLE IF NOT EXISTS employee
+CREATE TABLE employee
 (
     id         UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     reference  VARCHAR,

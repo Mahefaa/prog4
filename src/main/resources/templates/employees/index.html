@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:td="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>List of Employees</title>
@@ -59,6 +59,8 @@
     <table>
         <thead>
         <tr>
+            <th>ID</th>
+            <th>Reference</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Birth Date</th>
@@ -66,6 +68,8 @@
         </thead>
         <tbody>
         <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.reference}"></td>
             <td th:text="${employee.firstName}"></td>
             <td th:text="${employee.lastName}"></td>
             <td th:text="${employee.birthDate}"></td>

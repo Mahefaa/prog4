@@ -11,7 +11,7 @@ public class EmployeeEntityMapper {
         .reference(null) //will be set later
         .firstName(domain.getFirstName())
         .lastName(domain.getLastName())
-        .birthDate(domain.getBirthDate())
+        .birthdate(domain.getBirthDate())
         .build();
   }
 
@@ -21,7 +21,7 @@ public class EmployeeEntityMapper {
         .reference(entity.getReference())
         .firstName(entity.getFirstName())
         .lastName(entity.getLastName())
-        .birthDate(entity.getBirthDate())
+        .birthDate(entity.getBirthdate())
         .build();
   }
 }
