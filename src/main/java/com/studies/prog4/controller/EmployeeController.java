@@ -2,7 +2,6 @@ package com.studies.prog4.controller;
 
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.service.EmployeeService;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,8 +19,8 @@ public class EmployeeController {
   private final EmployeeService service;
 
   @GetMapping
-  public String employeeList(Model model, HttpSession session) {
-    List<Employee> employees = service.getEmployees(session);
+  public String employeeList(Model model) {
+    List<Employee> employees = service.getEmployees();
     model.addAttribute(EMPLOYEES, employees);
     return "employees/index";
   }
@@ -33,8 +32,8 @@ public class EmployeeController {
   }
 
   @PostMapping
-  public String createEmployee(HttpSession session, @ModelAttribute Employee employee) {
-    service.saveEmployee(session, List.of(employee));
+  public String createEmployee(@ModelAttribute Employee employee) {
+    service.saveEmployee(List.of(employee));
     return "redirect:/employees";
   }
 }
