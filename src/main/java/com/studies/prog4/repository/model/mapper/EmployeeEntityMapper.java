@@ -1,11 +1,16 @@
 package com.studies.prog4.repository.model.mapper;
 
 import com.studies.prog4.repository.model.Employee;
+import com.studies.prog4.repository.model.validator.EmployeeValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class EmployeeEntityMapper {
+  private final EmployeeValidator validator;
   public Employee toEntity(com.studies.prog4.model.Employee domain) {
+    validator.accept(domain);
     return Employee.builder()
         .id(null) // will be set later
         .reference(null) //will be set later

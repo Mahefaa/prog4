@@ -77,7 +77,7 @@
             </tr>
             <tr>
                 <td><label>Birth Date</label></td>
-                <td><input type="date" th:field="*{birthDate}"/></td>
+                <td><input type="date" th:field="*{birthDate}" th:max="${#temporals.createToday()}"/></td>
             </tr>
             <tr>
                 <td><label>Profile Picture</label></td>
