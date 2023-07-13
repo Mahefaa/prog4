@@ -60,24 +60,12 @@
             cursor: pointer;
         }
     </style>
-    <script>
-        function convertToBase64(input) {
-            var file = input.files[0];
-            var reader = new FileReader();
-
-            reader.onloadend = function () {
-                var base64Data = reader.result;
-                document.getElementById('base64Output').value = base64Data;
-            };
-
-            reader.readAsDataURL(file);
-        }
-    </script>
 </head>
 <body>
 <header>Add new employee</header>
 <main>
-    <form action="#" th:action="@{/employees}" th:object="${employee}" method="post">
+    <form action="#" th:action="@{/employees}" th:object="${createEmployee}" method="post"
+          enctype="multipart/form-data">
         <table>
             <tr>
                 <td><label>First Name</label></td>
@@ -94,8 +82,7 @@
             <tr>
                 <td><label>Profile Picture</label></td>
                 <td>
-                    <input type="file" id="profilePictureInput" onchange="convertToBase64(this)">
-                    <input type="hidden" id="base64Output" th:field="*{profilePicture}"/>
+                    <input type="file" th:field="*{profilePicture}">
                 </td>
             </tr>
         </table>

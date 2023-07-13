@@ -1,5 +1,8 @@
 package com.studies.prog4.controller;
 
+import com.studies.prog4.controller.rest.mapper.EmployeeMapper;
+import com.studies.prog4.controller.rest.model.CreateEmployee;
+import com.studies.prog4.controller.rest.model.RestEmployee;
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.service.EmployeeService;
 import java.util.List;
@@ -19,31 +22,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EmployeeController {
   public static final String EMPLOYEES = "employees";
   public static final String EMPLOYEE = "employee";
+  public static final String CREATE_EMPLOYEE = "createEmployee";
   private final EmployeeService service;
+  private final EmployeeMapper mapper;
 
   @GetMapping
   public String getEmployees(Model model) {
     List<Employee> employees = service.getEmployees();
-    model.addAttribute(EMPLOYEES, employees);
+    List<RestEmployee> restEmployees = employees.stream().map(mapper::toRest).toList();
+    model.addAttribute(EMPLOYEES, restEmployees);
     return "employees/index";
   }
 
   @GetMapping("/{id}/profile")
   public String getEmployee(@PathVariable UUID id, Model model) {
     Employee employee = service.getById(id);
-    model.addAttribute(EMPLOYEE, employee);
+    model.addAttribute(EMPLOYEE, mapper.toRest(employee));
     return "employees/profile";
   }
 
   @GetMapping("/form")
   public String form(Model model) {
-    model.addAttribute("employee", new Employee());
+    model.addAttribute(CREATE_EMPLOYEE, new CreateEmployee());
     return "employees/form";
   }
 
   @PostMapping
-  public String createEmployee(@ModelAttribute Employee employee) {
-    service.saveEmployee(List.of(employee));
+  public String createEmployee(@ModelAttribute CreateEmployee createEmployee) {
+    service.saveEmployee(List.of(mapper.toDomain(createEmployee)));
     return "redirect:/employees";
   }
 }
