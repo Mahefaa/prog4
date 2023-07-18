@@ -1,4 +1,4 @@
-package com.studies.prog4.controller.rest.mapper;
+package com.studies.prog4.controller.view.mapper;
 
 import java.util.Base64;
 import org.springframework.stereotype.Component;

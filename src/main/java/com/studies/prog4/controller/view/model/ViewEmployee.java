@@ -1,14 +1,14 @@
-package com.studies.prog4.controller.rest.model;
+package com.studies.prog4.controller.view.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @ToString
-public class CreateEmployee implements Serializable {
+public class ViewEmployee implements Serializable {
+  public String reference;
+  private UUID id;
   private String firstName;
   private String lastName;
   private LocalDate birthDate;
-  private MultipartFile profilePicture;
+  private String profilePicture;
 }

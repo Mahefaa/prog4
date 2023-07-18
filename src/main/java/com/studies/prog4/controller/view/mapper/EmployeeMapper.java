@@ -1,8 +1,8 @@
-package com.studies.prog4.controller.rest.mapper;
+package com.studies.prog4.controller.view.mapper;
 
-import com.studies.prog4.controller.rest.model.CreateEmployee;
-import com.studies.prog4.controller.rest.model.RestEmployee;
-import com.studies.prog4.controller.rest.model.validator.CreateEmployeeValidator;
+import com.studies.prog4.controller.view.model.CreateEmployee;
+import com.studies.prog4.controller.view.model.ViewEmployee;
+import com.studies.prog4.controller.view.model.validator.CreateEmployeeValidator;
 import com.studies.prog4.model.Employee;
 import java.io.IOException;
 import lombok.AllArgsConstructor;
@@ -31,8 +31,8 @@ public class EmployeeMapper {
         .build();
   }
 
-  public RestEmployee toRest(Employee employee) {
-    return RestEmployee.builder()
+  public ViewEmployee toView(Employee employee) {
+    return ViewEmployee.builder()
         .id(employee.getId())
         .reference(employee.getReference())
         .birthDate(employee.getBirthDate())

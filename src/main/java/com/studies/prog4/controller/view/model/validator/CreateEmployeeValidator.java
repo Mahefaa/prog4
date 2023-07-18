@@ -1,6 +1,6 @@
-package com.studies.prog4.controller.rest.model.validator;
+package com.studies.prog4.controller.view.model.validator;
 
-import com.studies.prog4.controller.rest.model.CreateEmployee;
+import com.studies.prog4.controller.view.model.CreateEmployee;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Component;
 

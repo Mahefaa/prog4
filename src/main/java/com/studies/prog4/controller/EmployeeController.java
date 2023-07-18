@@ -1,8 +1,8 @@
 package com.studies.prog4.controller;
 
-import com.studies.prog4.controller.rest.mapper.EmployeeMapper;
-import com.studies.prog4.controller.rest.model.CreateEmployee;
-import com.studies.prog4.controller.rest.model.RestEmployee;
+import com.studies.prog4.controller.view.mapper.EmployeeMapper;
+import com.studies.prog4.controller.view.model.CreateEmployee;
+import com.studies.prog4.controller.view.model.ViewEmployee;
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.service.EmployeeService;
 import java.util.List;
@@ -29,15 +29,15 @@ public class EmployeeController {
   @GetMapping
   public String getEmployees(Model model) {
     List<Employee> employees = service.getEmployees();
-    List<RestEmployee> restEmployees = employees.stream().map(mapper::toRest).toList();
-    model.addAttribute(EMPLOYEES, restEmployees);
+    List<ViewEmployee> viewEmployees = employees.stream().map(mapper::toView).toList();
+    model.addAttribute(EMPLOYEES, viewEmployees);
     return "employees/index";
   }
 
   @GetMapping("/{id}/profile")
   public String getEmployee(@PathVariable UUID id, Model model) {
     Employee employee = service.getById(id);
-    model.addAttribute(EMPLOYEE, mapper.toRest(employee));
+    model.addAttribute(EMPLOYEE, mapper.toView(employee));
     return "employees/profile";
   }
 
