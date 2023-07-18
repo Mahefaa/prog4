@@ -17,7 +17,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @ToString
 public class Employee implements Serializable {
-  public String reference;
+  private String reference;
   private UUID id;
   private String firstName;
   private String lastName;
