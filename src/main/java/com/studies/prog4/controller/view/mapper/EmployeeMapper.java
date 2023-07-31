@@ -39,6 +39,18 @@ public class EmployeeMapper {
         .lastName(employee.getLastName())
         .firstName(employee.getFirstName())
         .profilePicture(toBase64ImageString(employee.getProfilePicture()))
+        .sex(employee.getSex())
+        .csp(employee.getCsp())
+        .address(employee.getAddress())
+        .emailPro(employee.getEmailPro())
+        .emailPerso(employee.getEmailPerso())
+        .role(employee.getRole())
+        .childNumber(employee.getChildNumber())
+        .hiringDate(employee.getHiringDate())
+        .departureDate(employee.getDepartureDate())
+        .cnaps(employee.getCnaps())
+        .phones(employee.getPhones())
+        .nic(employee.getNic())
         .build();
   }
 
