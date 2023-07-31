@@ -29,6 +29,18 @@ public class EmployeeEntityMapper {
         .lastName(entity.getLastName())
         .birthDate(entity.getBirthdate())
         .profilePicture(entity.getProfilePicture())
+        .sex(entity.getSex())
+        .csp(entity.getCsp())
+        .address(entity.getAddress())
+        .emailPro(entity.getEmailPro())
+        .emailPerso(entity.getEmailPerso())
+        .role(entity.getRole())
+        .childNumber(entity.getChildNumber())
+        .hiringDate(entity.getHiringDate())
+        .departureDate(entity.getDepartureDate())
+        .cnaps(entity.getCnaps())
+        .phones(entity.getPhones())
+        .nic(entity.getNic())
         .build();
   }
 }
