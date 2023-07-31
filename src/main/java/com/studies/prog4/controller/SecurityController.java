@@ -1,5 +1,6 @@
 package com.studies.prog4.controller;
 
+import com.studies.prog4.service.CompanyService;
 import com.studies.prog4.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static java.util.UUID.randomUUID;
 
 @Controller
-@AllArgsConstructor
 public class SecurityController extends AnonymousResourceController {
   private final UserService service;
+
+  public SecurityController(CompanyService companyService, UserService service) {
+    super(companyService);
+    this.service = service;
+  }
 
   @GetMapping("*")
   public String handleUnknownRoutes() {
@@ -37,7 +41,7 @@ public class SecurityController extends AnonymousResourceController {
       HttpServletRequest request,
       HttpServletResponse response) {
     Cookie[] cookies = request.getCookies();
-    if (Arrays.stream(cookies)
+    if (cookies != null && Arrays.stream(cookies)
         .anyMatch(cookie -> Objects.equals(cookie.getName(), "token"))) {
       return "redirect:/employees";
     }

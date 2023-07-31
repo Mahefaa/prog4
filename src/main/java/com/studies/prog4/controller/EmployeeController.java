@@ -4,12 +4,12 @@ import com.studies.prog4.controller.view.mapper.EmployeeMapper;
 import com.studies.prog4.controller.view.model.CreateEmployee;
 import com.studies.prog4.controller.view.model.ViewEmployee;
 import com.studies.prog4.model.Employee;
+import com.studies.prog4.service.CompanyService;
 import com.studies.prog4.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static java.util.UUID.randomUUID;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/employees")
 public class EmployeeController extends AuthenticatedResourceController {
   public static final String EMPLOYEES = "employees";
@@ -32,6 +31,13 @@ public class EmployeeController extends AuthenticatedResourceController {
   public static final String CREATE_EMPLOYEE = "createEmployee";
   private final EmployeeService service;
   private final EmployeeMapper mapper;
+
+  public EmployeeController(CompanyService companyService, EmployeeService service,
+                            EmployeeMapper mapper) {
+    super(companyService);
+    this.service = service;
+    this.mapper = mapper;
+  }
 
   @GetMapping
   public String getEmployees(
