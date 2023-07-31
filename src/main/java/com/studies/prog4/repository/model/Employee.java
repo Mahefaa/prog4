@@ -70,7 +70,7 @@ public class Employee implements Serializable {
   private List<EmployeePhone> phones;
 
   @OneToOne
-  @JoinColumn(name = "nic_id", referencedColumnName = "id")
+  @JoinColumn(name = "nic_id", referencedColumnName = "uuid")
   private NIC nic;
 
   public enum Sex {
