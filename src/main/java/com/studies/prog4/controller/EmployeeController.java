@@ -26,7 +26,7 @@ import static java.util.UUID.randomUUID;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/employees")
-public class EmployeeController {
+public class EmployeeController extends AuthenticatedResourceController {
   public static final String EMPLOYEES = "employees";
   public static final String EMPLOYEE = "employee";
   public static final String CREATE_EMPLOYEE = "createEmployee";
