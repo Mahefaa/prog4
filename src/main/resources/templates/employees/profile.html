@@ -6,6 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
         }
@@ -13,80 +14,126 @@
         header {
             background-color: #333;
             color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .profile-container {
+            display: flex;
+        }
+
+        .profile-picture {
+            flex: 0 0 150px;
+            margin-right: 20px;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+        }
+
+        ul {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+    </style>
+    <style>
+        .footer {
+            background-color: #333;
+            color: white;
             padding: 20px;
             text-align: center;
         }
 
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f7f7f7;
-            border: 1px solid #ddd;
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        .footer span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+    <style>
+        /* Styling for the Update Button */
+        .update-button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
+        .update-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 <header>Employee Profile</header>
 <main>
-    <div class="profile">
-        <div class="profile-image-container">
+    <div class="profile-container">
+        <div class="profile-picture">
             <div th:object="${employee}" th:if="${employee.profilePicture == null}">Aucune Image</div>
             <img class="profile-image" th:if="${employee.profilePicture != null}" th:src="${employee.profilePicture}">
         </div>
-        <h2 th:text="${employee.firstName + ' ' + employee.lastName}"></h2>
+        <div class="profile-info">
+            <p><strong>Reference:</strong> <span th:text="${employee.reference}"></span></p>
+            <p><strong>First Name:</strong> <span th:text="${employee.firstName}"></span></p>
+            <p><strong>Last Name:</strong> <span th:text="${employee.lastName}"></span></p>
+            <p><strong>Birth Date:</strong> <span th:text="${employee.birthDate}"></span></p>
+            <p><strong>Sex:</strong> <span th:text="${employee.sex}"></span></p>
+            <p><strong>CSP:</strong> <span th:text="${employee.csp}"></span></p>
+            <p><strong>Address:</strong> <span th:text="${employee.address}"></span></p>
+            <p><strong>Email (Professional):</strong> <span th:text="${employee.emailPro}"></span></p>
+            <p><strong>Email (Personal):</strong> <span th:text="${employee.emailPerso}"></span></p>
+            <p><strong>Role:</strong> <span th:text="${employee.role}"></span></p>
+            <p><strong>Number of Children:</strong> <span th:text="${employee.childNumber}"></span></p>
+            <p><strong>Hiring Date:</strong> <span th:text="${employee.hiringDate}"></span></p>
+            <p><strong>Departure Date:</strong> <span th:text="${employee.departureDate}"></span></p>
+            <p><strong>CNAPS:</strong> <span th:text="${employee.cnaps}"></span></p>
+            <p><strong>Phone Number(s):</strong></p>
+            <ul>
+                <li th:each="phone : ${employee.phones}" th:text="${phone.phone.phoneNumber}"></li>
+            </ul>
+            <p><strong>NIC ID:</strong> <span th:text="${employee.nic.id}"></span></p>
+        </div>
     </div>
-    <table>
-        <tbody>
-        <tr>
-            <th>ID</th>
-            <td th:text="${employee.id}"></td>
-        </tr>
-        <tr>
-            <th>Reference</th>
-            <td th:text="${employee.reference}"></td>
-        </tr>
-        <tr>
-            <th>First Name</th>
-            <td th:text="${employee.firstName}"></td>
-        </tr>
-        <tr>
-            <th>Last Name</th>
-            <td th:text="${employee.lastName}"></td>
-        </tr>
-        <tr>
-            <th>Birth Date</th>
-            <td th:text="${employee.birthDate}"></td>
-        </tr>
-        </tbody>
-    </table>
+     <a th:href="@{/employees/{id}/update(id=${employee.id})}">
+        <button class="update-button">Update Profile</button>
+    </a>
 </main>
+<footer class="footer">
+    <div class="company-info">
+        <p th:text="${company.name}"></p>
+        <p th:text="${company.description}"></p>
+        <p th:text="${company.slogan}"></p>
+        <p th:text="${company.address}"></p>
+        <p th:text="${company.email}"></p>
+        <p th:text="${company.nif}"></p>
+        <p th:text="${company.stat}"></p>
+        <p th:text="${company.rcs}"></p>
+        <p>
+            Phone Numbers:
+            <span th:each="phone : ${company.phones}" th:text="${phone.phone.phoneNumber} + ' '"></span>
+        </p>
+    </div>
+</footer>
 </body>
 </html>

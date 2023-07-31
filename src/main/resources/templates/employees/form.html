@@ -3,63 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Add new Employee</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-        }
-
-        main {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f7f7f7;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="date"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 <header>Add new employee</header>
@@ -84,6 +27,78 @@
                 <td>
                     <input type="file" th:field="*{profilePicture}">
                 </td>
+            </tr>
+            <tr>
+                <td><label>Sex</label></td>
+                <td>
+                    <select th:field="*{sex}">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>CSP</label></td>
+                <td>
+                    <select th:field="*{csp}">
+                        <option value="M1">M1</option>
+                        <option value="M2">M2</option>
+                        <option value="OS1">OS1</option>
+                        <option value="OS2">OS2</option>
+                        <option value="OS3">OS3</option>
+                        <option value="OP1">OP1</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Address</label></td>
+                <td><input type="text" th:field="*{address}"/></td>
+            </tr>
+            <tr>
+                <td><label>Professional Email</label></td>
+                <td><input type="email" th:field="*{emailPro}" required/></td>
+            </tr>
+            <tr>
+                <td><label>Personal Email</label></td>
+                <td><input type="email" th:field="*{emailPerso}" required/></td>
+            </tr>
+            <tr>
+                <td><label>Role</label></td>
+                <td><input type="text" th:field="*{role}" required/></td>
+            </tr>
+            <tr>
+                <td><label>Child Number</label></td>
+                <td><input type="number" th:field="*{childNumber}" required/></td>
+            </tr>
+            <tr>
+                <td><label>Hiring Date</label></td>
+                <td><input type="date" th:field="*{hiringDate}" required/></td>
+            </tr>
+            <tr>
+                <td><label>Departure Date</label></td>
+                <td><input type="date" th:field="*{departureDate}"/></td>
+            </tr>
+            <tr>
+                <td><label>CNAPS</label></td>
+                <td><input type="text" th:field="*{cnaps}" required/></td>
+            </tr>
+            <tr>
+                <td><label>Phone Numbers</label></td>
+                <td>
+                    <input type="text" th:each="phone : ${createEmployee.phones}" th:field="*{phones[__${phoneStat.index}__].phone.phoneNumber}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td><label>NIC ID</label></td>
+                <td><input type="text" th:field="*{nic.id}" required/></td>
+            </tr>
+            <tr>
+                <td><label>NIC Issuing Date</label></td>
+                <td><input type="date" th:field="*{nic.issuingDate}" required/></td>
+            </tr>
+            <tr>
+                <td><label>NIC Issuing Place</label></td>
+                <td><input type="text" th:field="*{nic.issuingPlace}" required/></td>
             </tr>
         </table>
         <button type="submit">Enregistrer</button>

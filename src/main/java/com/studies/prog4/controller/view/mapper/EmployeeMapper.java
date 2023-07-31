@@ -28,6 +28,18 @@ public class EmployeeMapper {
         .lastName(createEmployee.getLastName())
         .birthDate(createEmployee.getBirthDate())
         .profilePicture(byteMapper.toBase64(bytes))
+        .sex(createEmployee.getSex())
+        .csp(createEmployee.getCsp())
+        .address(createEmployee.getAddress())
+        .emailPro(createEmployee.getEmailPro())
+        .emailPerso(createEmployee.getEmailPerso())
+        .role(createEmployee.getRole())
+        .childNumber(createEmployee.getChildNumber())
+        .hiringDate(createEmployee.getHiringDate())
+        .departureDate(createEmployee.getDepartureDate())
+        .cnaps(createEmployee.getCnaps())
+        .phones(createEmployee.getPhones())
+        .nic(createEmployee.getNic())
         .build();
   }
 

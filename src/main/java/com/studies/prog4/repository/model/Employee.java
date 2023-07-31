@@ -1,9 +1,8 @@
 package com.studies.prog4.repository.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,12 +35,8 @@ public class Employee implements Serializable {
   private String lastName;
   private LocalDate birthdate;
   private String profilePicture;
-
-  @Enumerated(EnumType.STRING)
-  private Sex sex;
-
-  @Enumerated(EnumType.STRING)
-  private Csp csp;
+  private String sex;
+  private String csp;
 
   @Column(nullable = false)
   private String address;
@@ -66,10 +61,10 @@ public class Employee implements Serializable {
   @Column(nullable = false)
   private String cnaps;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   private List<EmployeePhone> phones;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "nic_id", referencedColumnName = "uuid")
   private NIC nic;
 

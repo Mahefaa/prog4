@@ -4,51 +4,106 @@
     <meta charset="UTF-8">
     <title>List of Employees</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
+        .footer {
             background-color: #333;
-            color: #fff;
+            color: white;
             padding: 20px;
             text-align: center;
         }
 
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f7f7f7;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .footer p {
+            margin-bottom: 5px;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #333;
+        .footer span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+    <style>
+        /* Black and white theming */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        header, footer {
+            background-color: #000;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            text-align: center;
+            padding: 10px;
+        }
+
+        main {
+            padding: 20px;
         }
 
         table {
-            width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            width: 100%;
         }
 
         th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #000;
+            padding: 8px;
             text-align: left;
         }
 
-        a {
-            text-decoration: none;
+        th {
+            background-color: #000;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <style>
+        /* CSS for the filter form */
+        .employee-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .employee-filter .form-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .employee-filter label {
+            font-weight: bold;
+        }
+
+        .employee-filter select,
+        .employee-filter input[type="text"],
+        .employee-filter input[type="date"] {
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .employee-filter .btnSearch {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .employee-filter .btnSearch:hover {
+            background-color: #222;
         }
     </style>
 </head>
@@ -58,6 +113,51 @@
     <a th:href="@{/employees/form}">
         <button>Create New Employee</button>
     </a>
+    <form th:action="@{/employees}" method="get" class="employee-filter">
+        <label th:text="'Sort Attribute'" for="sortAttribute"></label>
+        <select id="sortAttribute" name="sortAttribute">
+            <option value="firstName">firstName</option>
+            <option value="lastName">lastName</option>
+            <option value="gender">gender</option>
+            <option value="role">role</option>
+            <option value="hiringDate">hiringDate</option>
+            <option value="departureDate">departureDate</option>
+        </select>
+        <label for="sortOrder" th:text="'Sort Order'"></label>
+        <select id="sortOrder" name="sortOrder">
+            <option value="ASC">ASC</option>
+            <option value="DESC">DESC</option>
+        </select>
+        <label th:text="FirstName" for="firstName"></label>
+        <input type="text" id="firstName" name="firstName"/>
+
+        <label th:text="LastName" for="lastName"></label>
+        <input type="text" name="lastName" id="lastName"/>
+
+        <label for="sex">Choose a gender :</label>
+        <select id="sex" name="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+
+        <label th:text="Role" for="role"></label>
+        <input type="text" name="role" id="role"/>
+
+        <label th:text="'HiringDate from'" for="hiringDateIntervalBegin"></label>
+        <input type="date" name="hiringDateIntervalBegin" id="hiringDateIntervalBegin"/>
+
+        <label th:text="'Hiring Date to'" for="hiringDateIntervalEnd"></label>
+        <input type="date" name="hiringDateIntervalEnd" id="hiringDateIntervalEnd"/>
+
+        <label th:text="'Departure Date from'" for="departureDateIntervalBegin"></label>
+        <input type="date" name="departureDateIntervalBegin" id="departureDateIntervalBegin"/>
+
+        <label th:text="'Departure Date to'" for="departureDateIntervalEnd"></label>
+        <input type="date" name="departureDateIntervalEnd" id="departureDateIntervalEnd"/>
+
+
+        <button type="submit" class="btnSearch">Filter</button>
+    </form>
     <table>
         <thead>
         <tr>
@@ -78,53 +178,6 @@
             <th>Phone Number(s)</th>
             <th>CIN</th>
             <th>Actions</th>
-        </tr>
-        <tr>
-            <form th:action="@{/employees}" method="get">
-                <label th:text="'Sort Attribute'" for="sortAttribute"></label>
-                <select id="sortAttribute" name="sortAttribute">
-                    <option value="firstName">firstName</option>
-                    <option value="lastName">lastName</option>
-                    <option value="gender">gender</option>
-                    <option value="role">role</option>
-                    <option value="hiringDate">hiringDate</option>
-                    <option value="departureDate">departureDate</option>
-                </select>
-                <label for="sortOrder" th:text="'Sort Order'"></label>
-                <select id="sortOrder" name="sortOrder">
-                    <option value="ASC">ASC</option>
-                    <option value="DESC">DESC</option>
-                </select>
-                <label th:text="FirstName" for="firstName"></label>
-                <input type="text" id="firstName" name="firstName"/>
-
-                <label th:text="LastName" for="lastName"></label>
-                <input type="text" name="lastName" id="lastName"/>
-
-                <label for="sex">Choose a gender :</label>
-                <select id="sex" name="gender">
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                </select>
-
-                <label th:text="Role" for="role"></label>
-                <input type="text" name="role" id="role"/>
-
-                <label th:text="'HiringDate from'" for="hiringDateIntervalBegin"></label>
-                <input type="date" name="hiringDateIntervalBegin" id="hiringDateIntervalBegin"/>
-
-                <label th:text="'Hiring Date to'" for="hiringDateIntervalEnd"></label>
-                <input type="date" name="hiringDateIntervalEnd" id="hiringDateIntervalEnd"/>
-
-                <label th:text="'Departure Date from'" for="departureDateIntervalBegin"></label>
-                <input type="date" name="departureDateIntervalBegin" id="departureDateIntervalBegin"/>
-
-                <label th:text="'Departure Date to'" for="departureDateIntervalEnd"></label>
-                <input type="date" name="departureDateIntervalEnd" id="departureDateIntervalEnd"/>
-
-
-                <button type="submit" class="btnSearch">Filter</button>
-            </form>
         </tr>
         </thead>
         <tbody>
@@ -156,5 +209,21 @@
         </tbody>
     </table>
 </main>
+<footer class="footer">
+    <div class="company-info">
+        <p th:text="${company.name}"></p>
+        <p th:text="${company.description}"></p>
+        <p th:text="${company.slogan}"></p>
+        <p th:text="${company.address}"></p>
+        <p th:text="${company.email}"></p>
+        <p th:text="${company.nif}"></p>
+        <p th:text="${company.stat}"></p>
+        <p th:text="${company.rcs}"></p>
+        <p>
+            Phone Numbers:
+            <span th:each="phone : ${company.phones}" th:text="${phone.phone.phoneNumber} + ' '"></span>
+        </p>
+    </div>
+</footer>
 </body>
 </html>
