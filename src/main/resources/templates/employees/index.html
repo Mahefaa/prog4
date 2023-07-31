@@ -79,6 +79,53 @@
             <th>CIN</th>
             <th>Actions</th>
         </tr>
+        <tr>
+            <form th:action="@{/employees}" method="get">
+                <label th:text="'Sort Attribute'" for="sortAttribute"></label>
+                <select id="sortAttribute" name="sortAttribute">
+                    <option value="firstName">firstName</option>
+                    <option value="lastName">lastName</option>
+                    <option value="gender">gender</option>
+                    <option value="role">role</option>
+                    <option value="hiringDate">hiringDate</option>
+                    <option value="departureDate">departureDate</option>
+                </select>
+                <label for="sortOrder" th:text="'Sort Order'"></label>
+                <select id="sortOrder" name="sortOrder">
+                    <option value="ASC">ASC</option>
+                    <option value="DESC">DESC</option>
+                </select>
+                <label th:text="FirstName" for="firstName"></label>
+                <input type="text" id="firstName" name="firstName"/>
+
+                <label th:text="LastName" for="lastName"></label>
+                <input type="text" name="lastName" id="lastName"/>
+
+                <label for="sex">Choose a gender :</label>
+                <select id="sex" name="gender">
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+
+                <label th:text="Role" for="role"></label>
+                <input type="text" name="role" id="role"/>
+
+                <label th:text="'HiringDate from'" for="hiringDateIntervalBegin"></label>
+                <input type="date" name="hiringDateIntervalBegin" id="hiringDateIntervalBegin"/>
+
+                <label th:text="'Hiring Date to'" for="hiringDateIntervalEnd"></label>
+                <input type="date" name="hiringDateIntervalEnd" id="hiringDateIntervalEnd"/>
+
+                <label th:text="'Departure Date from'" for="departureDateIntervalBegin"></label>
+                <input type="date" name="departureDateIntervalBegin" id="departureDateIntervalBegin"/>
+
+                <label th:text="'Departure Date to'" for="departureDateIntervalEnd"></label>
+                <input type="date" name="departureDateIntervalEnd" id="departureDateIntervalEnd"/>
+
+
+                <button type="submit" class="btnSearch">Filter</button>
+            </form>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="employee : ${employees}">
