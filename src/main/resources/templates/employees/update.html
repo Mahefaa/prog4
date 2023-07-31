@@ -155,7 +155,12 @@
             <tr>
                 <td><label>Phone Numbers</label></td>
                 <td id="phoneNumber-fields">
-                    <input type="text" th:field="*{phones[0].phone.phoneNumber}" required/>
+                    <input th:field="*{phones[0].phone.id}" hidden/>
+                    <label for="phoneCode">CODE</label><input type="text" id="phoneCode" th:field="*{phones[0].phone.code}" required/>
+                    <label>
+                        NUMBER
+                        <input type="text" th:field="*{phones[0].phone.phoneNumber}" required/>
+                    </label>
                 </td>
                 <td>
                     <button type="button" class="add-button" onclick="addPhoneNumber()">Add Phone Number</button>
@@ -178,7 +183,7 @@
             </tr>
         </table>
         <button type="submit" class="update-button">Update</button>
-        <a th:href="@{/employees/delete/{id}(id=${employee.id})}" class="delete-button">Delete</a>
+        <a class="delete-button">Delete</a>
     </form>
 </main>
 <script th:inline="javascript" defer>
@@ -186,10 +191,24 @@
 
     function addPhoneNumber() {
         const phoneInput = document.createElement("input");
+        const phoneInputLabel = document.createElement("label");
+        phoneInputLabel.setAttribute("for", "phoneNumber"+phoneCount)
+        phoneInput.appendChild("CODE")
         phoneInput.setAttribute("type", "text");
-        phoneInput.setAttribute("th:field", "*{phones[__${phoneCount}__].phone.phoneNumber}");
+        phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
+        phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
         phoneInput.setAttribute("required", "");
-        document.getElementById("phoneNumber-fields").appendChild(phoneInput);
+        const phoneCodeInput = document.createElement("input");
+        const phoneCodeLabel = document.createElement("label");
+        phoneCodeInput.setAttribute("type", "text");
+        phoneCodeInput.setAttribute("id", "phoneCode" + phoneCount);
+        phoneCodeInput.setAttribute("name", "phones[" + phoneCount + "].code");
+        phoneCodeInput.setAttribute("required", "");
+        document.getElementById("phoneNumber-fields")
+            .appendChild(phoneCodeLabel)
+            .appendChild(phoneCodeInput)
+            .appendChild(phoneInputLabel)
+            .appendChild(phoneInput);
         phoneCount++;
     }
 </script>

@@ -198,7 +198,7 @@
             <td th:text="${employee.cnaps}"/>
             <td>
                 <ul>
-                    <li th:each="phone : ${employee.phones}" th:text="${phone.phone.phoneNumber}"></li>
+                    <li th:each="phone : ${employee.phones}" th:text="${'+'+phone.phone.code} + ${phone.phone.phoneNumber}"></li>
                 </ul>
             </td>
             <td th:text="${employee.nic.id}"/>

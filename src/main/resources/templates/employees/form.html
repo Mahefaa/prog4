@@ -140,7 +140,12 @@
             <tr>
                 <td><label>Phone Numbers</label></td>
                 <td id="phoneNumber-fields">
-                    <input type="text" id="phoneNumber" th:field="*{phones[0].phone.phoneNumber}" required/>
+                    <input th:field="*{phones[0].phone.id}" hidden/>
+                    <label for="phoneCode" th:text="CODE"></label><input type="text" id="phoneCode"
+                                                                         th:field="*{phones[0].phone.code}" required/>
+                    <label for="phoneNumber" th:text="Number"></label><input type="text" id="phoneNumber"
+                                                                             th:field="*{phones[0].phone.phoneNumber}"
+                                                                             required/>
                 </td>
                 <td>
                     <button type="button" class="add-button" onclick="addPhoneNumber()">Add Phone Number</button>
@@ -167,11 +172,23 @@
 
     function addPhoneNumber() {
         const phoneInput = document.createElement("input");
+        const phoneInputLabel = document.createElement("label");
+        phoneInputLabel.setAttribute("for", "phoneNumber" + phoneCount)
         phoneInput.setAttribute("type", "text");
         phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
         phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
         phoneInput.setAttribute("required", "");
-        document.getElementById("phoneNumber-fields").appendChild(phoneInput);
+        const phoneCodeInput = document.createElement("input");
+        const phoneCodeLabel = document.createElement("label");
+        phoneCodeInput.setAttribute("type", "text");
+        phoneCodeInput.setAttribute("id", "phoneCode" + phoneCount);
+        phoneCodeInput.setAttribute("name", "phones[" + phoneCount + "].code");
+        phoneCodeInput.setAttribute("required", "");
+        document.getElementById("phoneNumber-fields")
+            .appendChild(phoneCodeLabel)
+            .appendChild(phoneCodeInput)
+            .appendChild(phoneInputLabel)
+            .appendChild(phoneInput);
         phoneCount++;
     }
 </script>
