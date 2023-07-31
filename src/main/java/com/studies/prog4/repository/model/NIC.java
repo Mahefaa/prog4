@@ -3,6 +3,7 @@ package com.studies.prog4.repository.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,6 @@ public class NIC {
   private String id;
   private LocalDate issuingDate;
   private String issuingPlace;
+  @OneToOne(mappedBy = "nic")
+  private Employee employee;
 }

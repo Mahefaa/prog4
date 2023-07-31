@@ -7,7 +7,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -66,6 +68,10 @@ public class Employee implements Serializable {
 
   @OneToMany(mappedBy = "employee")
   private List<EmployeePhone> phones;
+
+  @OneToOne
+  @JoinColumn(name = "nic_id", referencedColumnName = "id")
+  private NIC nic;
 
   public enum Sex {
     M, F
