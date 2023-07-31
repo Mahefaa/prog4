@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS nic
 ALTER TABLE employee
     ADD COLUMN nic_id uuid;
 ALTER TABLE employee
-    ADD CONSTRAINT fk_nic foreign key (nic_id) references nic (id);
+    ADD CONSTRAINT fk_nic foreign key (nic_id) references nic (uuid);
