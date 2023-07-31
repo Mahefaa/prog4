@@ -101,7 +101,7 @@
                     <li th:each="test : ${employee.phones}" th:text="${test.phoneNumber}"></li>
                 </ul>
             </td>
-            <td th:text="${employee.cin.id}"/>
+            <td th:text="${employee.nic.id}"/>
             <td>
                 <a th:href="@{/employees/{id}/profile(id=${employee.id})}">View Profile</a>
             </td>
