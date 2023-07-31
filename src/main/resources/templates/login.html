@@ -2,78 +2,130 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login - Company App</title>
+    <!-- Link to your CSS file (style.css) for custom styling -->
+    <link rel="stylesheet" th:href="@{../static/css/login.css}"/>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        /* Apply your custom styling here */
+        /* For example, you can adjust the layout, colors, font styles, etc. */
+
+        .login-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
-            margin: 0;
+        }
+
+        .company-logo img {
+            max-width: 150px;
         }
 
         .login-form {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
             padding: 20px;
-            max-width: 300px;
-            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+            width: 90%; /* Responsive width */
         }
 
         .login-form h2 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #000;
         }
 
-        .login-form label {
+        .login-form label,
+        .login-form input {
             display: block;
             margin-bottom: 10px;
-            color: #000;
         }
 
         .login-form input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 15px;
+            font-size: 16px;
         }
 
         .login-form button {
             width: 100%;
             padding: 10px;
-            background-color: #000;
-            color: #fff;
+            background-color: #6A64F1;
+            color: white;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
         }
 
         .login-form button:hover {
-            background-color: #222;
+            background-color: #4C49D2;
         }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        .footer span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* Responsive Design */
+
+        @media screen and (max-width: 768px) {
+            /* Adjust the login form width for smaller screens */
+            .login-form {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
-<div class="login-form">
-    <h2>Login</h2>
-    <form th:action="@{/}" method="post">
-        <div>
+<div class="login-container">
+    <!-- Company Logo -->
+    <div class="company-logo">
+        <img th:src="${company.logo}" alt="Company Logo"/>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-form">
+        <h2>Login</h2>
+        <form th:action="@{/}" method="post">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
+            <input type="text" id="username" name="username" required/>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
+            <input type="password" id="password" name="password" required/>
             <button type="submit">Login</button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
+
+<!-- Footer with Company Information -->
+<footer class="footer">
+    <div class="company-info">
+        <p th:text="${company.name}"></p>
+        <p th:text="${company.description}"></p>
+        <p th:text="${company.slogan}"></p>
+        <p th:text="${company.address}"></p>
+        <p th:text="${company.email}"></p>
+        <p th:text="${company.nif}"></p>
+        <p th:text="${company.stat}"></p>
+        <p th:text="${company.rcs}"></p>
+        <p>
+            Phone Numbers:
+            <span th:each="phone : ${company.phones}" th:text="${phone.phone.phoneNumber} + ' '"></span>
+        </p>
+    </div>
+</footer>
 </body>
 </html>
