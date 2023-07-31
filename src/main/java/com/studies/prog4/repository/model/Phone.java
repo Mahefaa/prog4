@@ -1,13 +1,10 @@
 package com.studies.prog4.repository.model;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,15 +20,11 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Entity
-public class EmployeePhone {
+public class Phone {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private UUID id;
-  @OneToOne
-  @JoinColumn(name = "phone_number_id", referencedColumnName = "id")
-  private Phone phone;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "employee_id", referencedColumnName = "id")
-  private Employee employee;
+  @Column(unique = true, nullable = false)
+  private String phoneNumber;
 }

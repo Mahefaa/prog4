@@ -3,6 +3,7 @@ package com.studies.prog4.service;
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.repository.EmployeeRepository;
 import com.studies.prog4.repository.model.EmployeePhone;
+import com.studies.prog4.repository.model.Phone;
 import com.studies.prog4.repository.model.mapper.EmployeeEntityMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -77,8 +78,10 @@ public class EmployeeService {
             employee.getEmailPro(), employee.getEmailPerso(), employee.getRole(),
             employee.getChildNumber(), employee.getHiringDate(), employee.getDepartureDate(),
             employee.getCnaps(),
-            employee.getPhones().stream().map(EmployeePhone::getPhoneNumber).collect(
-                Collectors.joining(" ")), employee.getNic().getId()));
+            employee.getPhones().stream()
+                .map(EmployeePhone::getPhone)
+                .map(Phone::getPhoneNumber)
+                .collect(Collectors.joining(" ")), employee.getNic().getId()));
       }
     } catch (IOException e) {
       e.printStackTrace();
