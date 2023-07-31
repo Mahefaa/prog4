@@ -5,17 +5,21 @@ import com.studies.prog4.controller.view.model.ViewEmployee;
 import com.studies.prog4.controller.view.model.validator.CreateEmployeeValidator;
 import com.studies.prog4.model.Employee;
 import java.io.IOException;
+import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class EmployeeMapper {
   private static final String BASE64_PREFIX = "data:image/png;base64,";
   private final ByteMapper byteMapper;
   private final CreateEmployeeValidator createValidator;
 
   public Employee toDomain(CreateEmployee createEmployee) {
+    log.info("phones = {}", createEmployee.getPhones());
     createValidator.accept(createEmployee);
     byte[] bytes;
     try {
@@ -38,7 +42,7 @@ public class EmployeeMapper {
         .hiringDate(createEmployee.getHiringDate())
         .departureDate(createEmployee.getDepartureDate())
         .cnaps(createEmployee.getCnaps())
-        .phones(createEmployee.getPhones())
+        .phones(List.of())
         .nic(createEmployee.getNic())
         .build();
   }

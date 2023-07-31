@@ -60,10 +60,8 @@ public class EmployeeService {
         .orElseThrow(() -> new RuntimeException("Employee.id=" + id + " not found.")));
   }
 
-  public void saveEmployee(List<Employee> toSave) {
-    repository.saveAll(toSave.stream()
-        .map(mapper::toEntity)
-        .toList());
+  public Employee saveEmployee(Employee toSave) {
+    return mapper.toDomain(repository.save(mapper.toEntity(toSave)));
   }
 
   public void exportToCsv(List<Employee> employees, HttpServletResponse response) {

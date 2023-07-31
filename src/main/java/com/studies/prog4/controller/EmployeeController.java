@@ -5,11 +5,13 @@ import com.studies.prog4.controller.view.model.CreateEmployee;
 import com.studies.prog4.controller.view.model.ViewEmployee;
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.service.CompanyService;
+import com.studies.prog4.service.EmployeePhoneService;
 import com.studies.prog4.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -31,12 +33,14 @@ public class EmployeeController extends AuthenticatedResourceController {
   public static final String CREATE_EMPLOYEE = "createEmployee";
   private final EmployeeService service;
   private final EmployeeMapper mapper;
+  private final EmployeePhoneService phoneService;
 
   public EmployeeController(CompanyService companyService, EmployeeService service,
-                            EmployeeMapper mapper) {
+                            EmployeeMapper mapper, EmployeePhoneService phoneService) {
     super(companyService);
     this.service = service;
     this.mapper = mapper;
+    this.phoneService = phoneService;
   }
 
   @GetMapping
@@ -92,7 +96,8 @@ public class EmployeeController extends AuthenticatedResourceController {
 
   @PostMapping
   public String createEmployee(@ModelAttribute CreateEmployee createEmployee) {
-    service.saveEmployee(List.of(mapper.toDomain(createEmployee)));
+    Employee employee = service.saveEmployee(mapper.toDomain(createEmployee));
+    var phones = phoneService.saveAllForEmployee(employee, createEmployee.getPhones());
     return "redirect:/employees";
   }
 

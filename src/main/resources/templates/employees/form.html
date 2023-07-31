@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Add new Employee</title>
+    <style>
+        /* Styling for the Update Button */
+        .add-button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <header>Add new employee</header>
@@ -84,8 +101,11 @@
             </tr>
             <tr>
                 <td><label>Phone Numbers</label></td>
+                <td id="phoneNumber-fields">
+                     <input type="text" id="phoneNumber" th:field="*{phones[0].phone.phoneNumber}" required />
+                </td>
                 <td>
-                    <input type="text" th:each="phone : ${createEmployee.phones}" th:field="*{phones[__${phoneStat.index}__].phone.phoneNumber}" required/>
+                    <button type="button" class="add-button" onclick="addPhoneNumber()">Add Phone Number</button>
                 </td>
             </tr>
             <tr>
@@ -104,5 +124,18 @@
         <button type="submit">Enregistrer</button>
     </form>
 </main>
+<script th:inline="javascript" defer>
+  let phoneCount = 1;
+
+  function addPhoneNumber() {
+    const phoneInput = document.createElement("input");
+    phoneInput.setAttribute("type", "text");
+    phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
+    phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
+    phoneInput.setAttribute("required", "");
+    document.getElementById("phoneNumber-fields").appendChild(phoneInput);
+    phoneCount++;
+  }
+</script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,15 +24,16 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Entity
+@Builder
 public class EmployeePhone {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private UUID id;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "phone_number_id", referencedColumnName = "id")
   private Phone phone;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "employee_id", referencedColumnName = "id")
   private Employee employee;
 }
