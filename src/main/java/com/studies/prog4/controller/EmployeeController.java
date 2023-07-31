@@ -5,6 +5,7 @@ import com.studies.prog4.controller.view.model.CreateEmployee;
 import com.studies.prog4.controller.view.model.ViewEmployee;
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.service.EmployeeService;
+import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import static java.util.UUID.randomUUID;
 
 @Controller
 @AllArgsConstructor
@@ -85,5 +88,45 @@ public class EmployeeController {
   public String createEmployee(@ModelAttribute CreateEmployee createEmployee) {
     service.saveEmployee(List.of(mapper.toDomain(createEmployee)));
     return "redirect:/employees";
+  }
+
+  @GetMapping("/toCsv")
+  public void getCsv
+      (
+          @RequestParam(value = "firstName", required = false, defaultValue = "") String firstName,
+          @RequestParam(value = "lastName", required = false, defaultValue = "") String lastName,
+          @RequestParam(value = "gender", required = false, defaultValue = "M") String sex,
+          @RequestParam(value = "role", required = false, defaultValue = "") String role,
+          @RequestParam(value = "hiringDateIntervalBegin", required = false)
+          @DateTimeFormat(pattern = "yyyy-MM-dd")
+          LocalDate hiringDateIntervalBegin,
+          @RequestParam(value = "hiringDateIntervalEnd", required = false)
+          @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate hiringDateIntervalEnd,
+          @RequestParam(value = "departureDateIntervalBegin", required = false)
+          @DateTimeFormat(pattern = "yyyy-MM-dd")
+          LocalDate departureDateIntervalBegin,
+          @RequestParam(value = "departureDateIntervalEnd", required = false)
+          @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDateIntervalEnd,
+          @RequestParam(value = "sortAttribute", required = false, defaultValue = "firstName")
+          String sortAttribute,
+          @RequestParam(value = "sortOrder", required = false, defaultValue = "ASC")
+          Sort.Direction sortDirection,
+          HttpServletResponse response) {
+    List<Employee> employees = service.getEmployeesByCriterias(
+        firstName,
+        lastName,
+        role,
+        sex,
+        hiringDateIntervalBegin,
+        hiringDateIntervalEnd,
+        departureDateIntervalBegin,
+        departureDateIntervalEnd,
+        sortAttribute,
+        sortDirection
+    );
+    response.setContentType("text/csv");
+    response.setHeader("Content-Disposition",
+        "attachment; filename\"list_employees_" + randomUUID() + ".csv\"");
+    service.exportToCsv(employees, response);
   }
 }
