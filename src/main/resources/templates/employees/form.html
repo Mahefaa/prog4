@@ -20,6 +20,44 @@
             background-color: #0056b3;
         }
     </style>
+    <style>
+        /* Basic Styling for the Page */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 <header>Add new employee</header>
@@ -102,7 +140,7 @@
             <tr>
                 <td><label>Phone Numbers</label></td>
                 <td id="phoneNumber-fields">
-                     <input type="text" id="phoneNumber" th:field="*{phones[0].phone.phoneNumber}" required />
+                    <input type="text" id="phoneNumber" th:field="*{phones[0].phone.phoneNumber}" required/>
                 </td>
                 <td>
                     <button type="button" class="add-button" onclick="addPhoneNumber()">Add Phone Number</button>
@@ -125,17 +163,17 @@
     </form>
 </main>
 <script th:inline="javascript" defer>
-  let phoneCount = 1;
+    let phoneCount = 1;
 
-  function addPhoneNumber() {
-    const phoneInput = document.createElement("input");
-    phoneInput.setAttribute("type", "text");
-    phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
-    phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
-    phoneInput.setAttribute("required", "");
-    document.getElementById("phoneNumber-fields").appendChild(phoneInput);
-    phoneCount++;
-  }
+    function addPhoneNumber() {
+        const phoneInput = document.createElement("input");
+        phoneInput.setAttribute("type", "text");
+        phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
+        phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
+        phoneInput.setAttribute("required", "");
+        document.getElementById("phoneNumber-fields").appendChild(phoneInput);
+        phoneCount++;
+    }
 </script>
 </body>
 </html>
