@@ -61,21 +61,47 @@
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Reference</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Birth Date</th>
-            <th>Profile</th>
+            <th>Reference</th>
+            <th>Sex</th>
+            <th>Csp</th>
+            <th>Address</th>
+            <th>Professional Email</th>
+            <th>Personal Email</th>
+            <th>Role</th>
+            <th>Child Number</th>
+            <th>Hiring Date</th>
+            <th>Departure Date</th>
+            <th>Cnaps</th>
+            <th>Phone Number(s)</th>
+            <th>CIN</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="employee : ${employees}">
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.reference}"></td>
-            <td th:text="${employee.firstName}"></td>
-            <td th:text="${employee.lastName}"></td>
-            <td th:text="${employee.birthDate}"></td>
+            <td th:text="${employee.firstName}"/>
+            <td th:text="${employee.lastName}"/>
+            <td th:text="${employee.birthDate}"/>
+            <td th:text="${employee.reference}"/>
+            <td th:text="${employee.sex}"/>
+            <td th:text="${employee.csp}"/>
+            <td th:text="${employee.address}"/>
+            <td th:text="${employee.emailPro}"/>
+            <td th:text="${employee.emailPerso}"/>
+            <td th:text="${employee.role}"/>
+            <td th:text="${employee.childNumber}"/>
+            <td th:text="${employee.hiringDate}"/>
+            <td th:text="${employee.departureDate}"/>
+            <td th:text="${employee.cnaps}"/>
+            <td>
+                <ul>
+                    <li th:each="test : ${employee.phones}" th:text="${test.phoneNumber}"></li>
+                </ul>
+            </td>
+            <td th:text="${employee.cin.id}"/>
             <td>
                 <a th:href="@{/employees/{id}/profile(id=${employee.id})}">View Profile</a>
             </td>
