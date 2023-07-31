@@ -64,6 +64,33 @@ public class EmployeeService {
     return mapper.toDomain(repository.save(mapper.toEntity(toSave)));
   }
 
+  public Employee saveEmployee(UUID id, Employee toSave) {
+    Employee persisted = getById(id);
+    return mapper.toDomain(
+        repository.save(
+            mapper.toEntity(
+                persisted.toBuilder()
+                    .firstName(toSave.getFirstName())
+                    .lastName(toSave.getLastName())
+                    .birthDate(toSave.getBirthDate())
+                    .profilePicture(toSave.getProfilePicture())
+                    .sex(toSave.getSex())
+                    .csp(toSave.getCsp())
+                    .address(toSave.getAddress())
+                    .emailPro(toSave.getEmailPro())
+                    .emailPerso(toSave.getEmailPerso())
+                    .role(toSave.getRole())
+                    .childNumber(toSave.getChildNumber())
+                    .hiringDate(toSave.getHiringDate())
+                    .departureDate(toSave.getDepartureDate())
+                    .cnaps(toSave.getCnaps())
+                    .phones(toSave.getPhones())
+                    .nic(toSave.getNic()).build()
+            )
+        )
+    );
+  }
+
   public void exportToCsv(List<Employee> employees, HttpServletResponse response) {
     String cellTitles =
         "First Name,Last Name,Birth Date,Reference,Gender,Csp,Address,Professional Email,Personal Email,Role,Child Number,Hiring Date,Departure Date,Cnaps Number,Phone Numbers, Identity Card Id\n";

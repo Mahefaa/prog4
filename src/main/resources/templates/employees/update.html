@@ -2,24 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add new Employee</title>
-    <style>
-        /* Styling for the Update Button */
-        .add-button {
-            display: inline-block;
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .add-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Update Employee</title>
     <style>
         /* Basic Styling for the Page */
         body {
@@ -57,12 +40,44 @@
         th {
             background-color: #f2f2f2;
         }
+
+        /* Styling for the Update Button */
+        .update-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .update-button:hover {
+            background-color: #218838;
+        }
+
+        /* Styling for the Delete Button */
+        .delete-button {
+            display: inline-block;
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
-<header>Add new employee</header>
+<header>Update Employee</header>
 <main>
-    <form action="#" th:action="@{/employees}" th:object="${crupdateEmployee}" method="post"
+    <form action="#" th:action="@{/employees/{id}(id=${employee.id})}" th:object="${employee}" th:method="put"
           enctype="multipart/form-data">
         <table>
             <tr>
@@ -140,11 +155,14 @@
             <tr>
                 <td><label>Phone Numbers</label></td>
                 <td id="phoneNumber-fields">
-                    <input type="text" id="phoneNumber" th:field="*{phones[0].phone.phoneNumber}" required/>
+                    <input type="text" th:field="*{phones[0].phone.phoneNumber}" required/>
                 </td>
                 <td>
                     <button type="button" class="add-button" onclick="addPhoneNumber()">Add Phone Number</button>
                 </td>
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{nic.uuid}" hidden/></td>
             </tr>
             <tr>
                 <td><label>NIC ID</label></td>
@@ -159,7 +177,8 @@
                 <td><input type="text" th:field="*{nic.issuingPlace}" required/></td>
             </tr>
         </table>
-        <button type="submit">Enregistrer</button>
+        <button type="submit" class="update-button">Update</button>
+        <a th:href="@{/employees/delete/{id}(id=${employee.id})}" class="delete-button">Delete</a>
     </form>
 </main>
 <script th:inline="javascript" defer>
@@ -168,8 +187,7 @@
     function addPhoneNumber() {
         const phoneInput = document.createElement("input");
         phoneInput.setAttribute("type", "text");
-        phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
-        phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
+        phoneInput.setAttribute("th:field", "*{phones[__${phoneCount}__].phone.phoneNumber}");
         phoneInput.setAttribute("required", "");
         document.getElementById("phoneNumber-fields").appendChild(phoneInput);
         phoneCount++;

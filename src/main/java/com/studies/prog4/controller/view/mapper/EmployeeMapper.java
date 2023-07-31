@@ -1,6 +1,6 @@
 package com.studies.prog4.controller.view.mapper;
 
-import com.studies.prog4.controller.view.model.CreateEmployee;
+import com.studies.prog4.controller.view.model.CrupdateEmployee;
 import com.studies.prog4.controller.view.model.ViewEmployee;
 import com.studies.prog4.controller.view.model.validator.CreateEmployeeValidator;
 import com.studies.prog4.model.Employee;
@@ -12,38 +12,36 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-@Slf4j
 public class EmployeeMapper {
   private static final String BASE64_PREFIX = "data:image/png;base64,";
   private final ByteMapper byteMapper;
   private final CreateEmployeeValidator createValidator;
 
-  public Employee toDomain(CreateEmployee createEmployee) {
-    log.info("phones = {}", createEmployee.getPhones());
-    createValidator.accept(createEmployee);
+  public Employee toDomain(CrupdateEmployee crupdateEmployee) {
+    createValidator.accept(crupdateEmployee);
     byte[] bytes;
     try {
-      bytes = createEmployee.getProfilePicture().getBytes();
+      bytes = crupdateEmployee.getProfilePicture().getBytes();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
     return Employee.builder()
-        .firstName(createEmployee.getFirstName())
-        .lastName(createEmployee.getLastName())
-        .birthDate(createEmployee.getBirthDate())
+        .firstName(crupdateEmployee.getFirstName())
+        .lastName(crupdateEmployee.getLastName())
+        .birthDate(crupdateEmployee.getBirthDate())
         .profilePicture(byteMapper.toBase64(bytes))
-        .sex(createEmployee.getSex())
-        .csp(createEmployee.getCsp())
-        .address(createEmployee.getAddress())
-        .emailPro(createEmployee.getEmailPro())
-        .emailPerso(createEmployee.getEmailPerso())
-        .role(createEmployee.getRole())
-        .childNumber(createEmployee.getChildNumber())
-        .hiringDate(createEmployee.getHiringDate())
-        .departureDate(createEmployee.getDepartureDate())
-        .cnaps(createEmployee.getCnaps())
+        .sex(crupdateEmployee.getSex())
+        .csp(crupdateEmployee.getCsp())
+        .address(crupdateEmployee.getAddress())
+        .emailPro(crupdateEmployee.getEmailPro())
+        .emailPerso(crupdateEmployee.getEmailPerso())
+        .role(crupdateEmployee.getRole())
+        .childNumber(crupdateEmployee.getChildNumber())
+        .hiringDate(crupdateEmployee.getHiringDate())
+        .departureDate(crupdateEmployee.getDepartureDate())
+        .cnaps(crupdateEmployee.getCnaps())
         .phones(List.of())
-        .nic(createEmployee.getNic())
+        .nic(crupdateEmployee.getNic())
         .build();
   }
 

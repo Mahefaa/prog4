@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @ToString
-public class CreateEmployee implements Serializable {
+public class CrupdateEmployee implements Serializable {
   private String firstName;
   private String lastName;
   private LocalDate birthDate;
