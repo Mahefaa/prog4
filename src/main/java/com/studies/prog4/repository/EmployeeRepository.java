@@ -16,8 +16,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
       + "and( ?4 is null or upper(e.role) like concat('%',upper(?4),'%') )"
       +
       "and (?5 is null or e.id in (select a.employee.id from e.phones a where a.phone.code is null or a.phone.code = ?5))"
-      + "and( e.hiringDate between ?6 and ?7 )"
-      + "and (e.departureDate between ?8 and ?9)")
+      + "and( e.hiringDate >= ?6 and e.hiringDate <= ?7 )"
+      + "and (e.departureDate >= ?8 and e.departureDate <= ?9)")
   List<Employee> findAllByCriterias(
       String firstName,
       String lastName,
