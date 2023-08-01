@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/styles/index.css}">
-    <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
     <style>
         .error-container {
             height: 90vh;
@@ -22,13 +19,13 @@
     <title>Document</title>
 </head>
 <body>
-<div class="w-100 flex justify-center items-center error-container flex-wrap">
-    <div class="w-fit h-fit py-4 pr-2 mr-2">
-        <h1 class="text-6xl" th:text="${status}"></h1>
+<div class="error-container">
+    <div>
+        <h1 th:text="${status}"></h1>
     </div>
-    <div class="w-1/2 h-fit error-message-container">
-        <h4 class="block" th:text="${error}"></h4>
-        <h4 class="block" th:text="${message}"></h4>
+    <div class="error-message-container">
+        <h4 th:text="${error}"></h4>
+        <h4 th:text="${message}"></h4>
     </div>
 </div>
 </body>
