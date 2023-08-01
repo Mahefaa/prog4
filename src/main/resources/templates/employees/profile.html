@@ -93,7 +93,13 @@
     </style>
 </head>
 <body>
-<header>Employee Profile</header>
+<header>
+    Employee Profile
+     <ul class="navbar">
+        <li class="nav-item"><a th:href="@{/employees}">List</a></li>
+        <li class="nav-item"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</header>
 <main>
     <div class="profile-container">
         <div class="profile-picture">
