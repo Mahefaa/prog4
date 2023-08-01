@@ -56,8 +56,8 @@ public class EmployeeService {
             phoneCode,
             hiringDateIntervalBegin != null ? hiringDateIntervalBegin : DEFAULT_START_DATE,
             hiringDateIntervalEnd != null ? hiringDateIntervalEnd : now,
-            departureDateIntervalBegin != null ? hiringDateIntervalBegin : DEFAULT_START_DATE,
-            departureDateIntervalEnd != null ? hiringDateIntervalEnd : now,
+            departureDateIntervalBegin != null ?  departureDateIntervalBegin: DEFAULT_START_DATE,
+            departureDateIntervalEnd != null ? departureDateIntervalEnd : now,
             pageable
         )
         .stream()
