@@ -4,18 +4,17 @@ import com.studies.prog4.service.CompanyService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.HandlerInterceptor;
 
-public class AnonymousResourceController extends GlobalResourceProvider implements HandlerInterceptor{
+public class AnonymousResourceController extends GlobalResourceProvider {
   public AnonymousResourceController(CompanyService companyService) {
     super(companyService);
   }
 
   @ModelAttribute
-  @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-      throws Exception {
+  public void preHandle(HttpServletRequest request, HttpServletResponse response,
+                        Object handler) throws IOException {
     Cookie[] cookies = request.getCookies();
     boolean validToken = false;
     if (cookies != null) {
@@ -29,10 +28,8 @@ public class AnonymousResourceController extends GlobalResourceProvider implemen
         }
       }
     }
-    if (validToken){
+    if (validToken) {
       response.sendRedirect("/employees");
-      return false;
     }
-    return true;
   }
 }
