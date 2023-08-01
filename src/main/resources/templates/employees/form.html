@@ -4,9 +4,65 @@
     <meta charset="UTF-8">
     <title>Add new Employee</title>
     <style>
-        /* Styling for the Update Button */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table td {
+            padding: 10px;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin: 5px 0;
+        }
+
+        label {
+            width: 100%;
+        }
+
+        .phoneNumberContainer {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
         .add-button {
-            display: inline-block;
             background-color: #007BFF;
             color: #fff;
             padding: 10px 20px;
@@ -14,59 +70,26 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
         .add-button:hover {
             background-color: #0056b3;
         }
-    </style>
-    <style>
-        /* Basic Styling for the Page */
-        body {
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
 
-        header {
-            background-color: #007BFF;
+        button[type="submit"] {
+            background-color: #4CAF50;
             color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        main {
-            margin: 20px auto;
-            max-width: 600px;
-            padding: 20px;
-            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-    <style>
-        #phoneNumber-fields .phoneNumberContainer {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-
-        #phoneNumber-fields .phoneNumberContainer input, label {
-            width: 100%;
+        button[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -152,13 +175,14 @@
                 <td><label>Phone Numbers</label></td>
                 <td id="phoneNumber-fields">
                     <div class="phoneNumberContainer">
-                        <input th:field="*{phones[0].phone.id}" hidden/>
-                        <label for="phoneCode" th:text="CODE"></label><input type="text" id="phoneCode"
-                                                                             th:field="*{phones[0].phone.code}"
-                                                                             required/>
-                        <label for="phoneNumber" th:text="Number"></label><input type="text" id="phoneNumber"
-                                                                                 th:field="*{phones[0].phone.phoneNumber}"
-                                                                                 required/>
+                        <div>
+                            <label for="phoneCode" th:text="CODE"></label>
+                            <input type="text" id="phoneCode" th:field="*{phones[0].phone.code}" required/>
+                        </div>
+                        <div>
+                            <label for="phoneNumber" th:text="Number"></label>
+                            <input type="text" id="phoneNumber" th:field="*{phones[0].phone.phoneNumber}" required/>
+                        </div>
                     </div>
                 </td>
                 <td>
@@ -185,6 +209,7 @@
     let phoneCount = 1;
 
     function addPhoneNumber() {
+        const phoneInputDiv = document.createElement("div");
         const phoneInput = document.createElement("input");
         const phoneInputLabel = document.createElement("label");
         const phoneNumberId = "phoneNumber" + phoneCount;
@@ -198,6 +223,7 @@
         phoneInputLabel.htmlFor = phoneNumberId;
         phoneInputLabel.innerText = phoneNumberId;
 
+        const phoneCodeDiv = document.createElement("div");
         const phoneCodeInput = document.createElement("input");
         const phoneCodeLabel = document.createElement("label");
         const phoneCodeId = "phoneCode" + phoneCount;
@@ -213,11 +239,16 @@
         const phoneField = document.getElementById("phoneNumber-fields");
         const phoneNumberContainer = document.createElement("div");
 
+        phoneInputDiv.appendChild(phoneCodeLabel);
+        phoneInputDiv.appendChild(phoneCodeInput);
+
+        phoneCodeDiv.appendChild(phoneInputLabel)
+        phoneCodeDiv.appendChild(phoneInput);
+
         phoneNumberContainer.className = "phoneNumberContainer";
-        phoneNumberContainer.appendChild(phoneCodeLabel);
-        phoneNumberContainer.appendChild(phoneCodeInput);
-        phoneNumberContainer.appendChild(phoneInputLabel)
-        phoneNumberContainer.appendChild(phoneInput);
+        phoneNumberContainer.appendChild(phoneInputDiv);
+        phoneNumberContainer.appendChild(phoneCodeDiv);
+
         phoneField.appendChild(phoneNumberContainer);
 
         phoneCount++;

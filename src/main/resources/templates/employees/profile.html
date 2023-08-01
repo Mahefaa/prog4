@@ -1,87 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #f1f1f1;
+            color: #000;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color: #007BFF;
+            background-color: #000;
             color: #fff;
             text-align: center;
             padding: 10px;
         }
 
         main {
+            max-width: 800px;
+            margin: 5rem auto 20px;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            overflow-y: scroll;
         }
 
         .profile-container {
             display: flex;
+            gap: 20px;
         }
 
         .profile-picture {
-            flex: 0 0 150px;
-            margin-right: 20px;
+            text-align: center;
+            width: 200px;
         }
 
-        .profile-picture img {
-            width: 100%;
+        .profile-image {
+            max-width: 100%;
             border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .profile-info {
             flex: 1;
         }
 
-        .profile-info p {
-            margin: 5px 0;
-        }
-
         ul {
-            margin-top: 5px;
+            margin: 0;
             padding-left: 20px;
         }
-    </style>
-    <style>
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
+
+        ul li {
+            list-style: none;
         }
 
-        .footer p {
-            margin-bottom: 5px;
-        }
-
-        .footer span {
-            display: inline-block;
-            margin-right: 5px;
-        }
-    </style>
-    <style>
-        /* Styling for the Update Button */
         .update-button {
-            display: inline-block;
-            background-color: #007BFF;
+            background-color: #4CAF50;
             color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .update-button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
+        }
+
+        .footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10rem;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -110,12 +110,13 @@
             <p><strong>CNAPS:</strong> <span th:text="${employee.cnaps}"></span></p>
             <p><strong>Phone Number(s):</strong></p>
             <ul>
-                <li th:each="phone : ${employee.phones}" th:text="${'+'+phone.phone.code} + ' '+${phone.phone.phoneNumber}"></li>
+                <li th:each="phone : ${employee.phones}"
+                    th:text="${'+'+phone.phone.code} + ' ' + ${phone.phone.phoneNumber}"></li>
             </ul>
             <p><strong>NIC ID:</strong> <span th:text="${employee.nic.id}"></span></p>
         </div>
     </div>
-     <a th:href="@{/employees/{id}/update(id=${employee.id})}">
+    <a th:href="@{/employees/{id}/update(id=${employee.id})}">
         <button class="update-button">Update Profile</button>
     </a>
 </main>
