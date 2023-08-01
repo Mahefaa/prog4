@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +26,8 @@ public class ViewEmployee implements Serializable {
   private UUID id;
   private String firstName;
   private String lastName;
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthDate;
   private String profilePicture;
   private Employee.Sex sex;
@@ -41,8 +44,10 @@ public class ViewEmployee implements Serializable {
 
   private Integer childNumber;
 
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate hiringDate;
 
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate departureDate;
 
   private String cnaps;
