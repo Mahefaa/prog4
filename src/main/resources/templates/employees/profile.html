@@ -97,8 +97,7 @@
 <main>
     <div class="profile-container">
         <div class="profile-picture">
-            <div th:object="${employee}" th:if="${employee.profilePicture == null}">Aucune Image</div>
-            <img class="profile-image" th:if="${employee.profilePicture != null}" th:src="${employee.profilePicture}">
+            <img class="profile-image" th:if="${employee.profilePicture != null}" th:src="${employee.profilePicture}" alt="Aucune Image">
         </div>
         <div class="profile-info">
             <p><strong>Reference:</strong> <span th:text="${employee.reference}"></span></p>
