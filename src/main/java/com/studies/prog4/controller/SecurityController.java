@@ -24,11 +24,6 @@ public class SecurityController extends AnonymousResourceController {
     this.service = service;
   }
 
-  @GetMapping("*")
-  public String handleUnknownRoutes() {
-    return "redirect:/login";
-  }
-
   @GetMapping("/login")
   public String login() {
     return "login";
