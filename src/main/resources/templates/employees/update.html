@@ -105,6 +105,23 @@
             background-color: #c82333;
         }
     </style>
+    <style>
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 5px;
+        }
+
+        .footer span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
 <header>Update Employee</header>
@@ -223,6 +240,23 @@
         <a class="delete-button">Delete</a>
     </form>
 </main>
+<footer class="footer">
+    <div class="company-info">
+        <p th:text="${company.name}"></p>
+        <p th:text="${company.description}"></p>
+        <p th:text="${company.slogan}"></p>
+        <p th:text="${company.address}"></p>
+        <p th:text="${company.email}"></p>
+        <p th:text="${company.nif}"></p>
+        <p th:text="${company.stat}"></p>
+        <p th:text="${company.rcs}"></p>
+        <p>
+            Phone Numbers:
+            <span th:each="phone : ${company.phones}"
+                  th:text="${'+'+phone.phone.code+' '+phone.phone.phoneNumber} + ' '"></span>
+        </p>
+    </div>
+</footer>
 <script th:inline="javascript" defer>
     let phoneCount = 1;
 
