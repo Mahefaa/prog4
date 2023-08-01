@@ -145,6 +145,11 @@
         <button>Create New Employee</button>
     </a>
     <form th:action="@{/employees}" method="get" class="employee-filter">
+        <label th:text="page" for="page"></label>
+        <input type="number" id="page" name="page" min="0"/>
+
+        <label th:text="'page size'" for=pageSize></label>
+        <input type="number" name="pageSize" id="pageSize" min="0"/>
         <label th:text="'Sort Attribute'" for="sortAttribute"></label>
         <select id="sortAttribute" name="sortAttribute">
             <option value="firstName">firstName</option>

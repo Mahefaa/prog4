@@ -45,6 +45,8 @@ public class EmployeeController extends AuthenticatedResourceController {
 
   @GetMapping
   public String getEmployees(
+      @RequestParam(value = "page", required = false) Integer page,
+      @RequestParam(value = "pageSize",required = false) Integer pageSize,
       @RequestParam(value = "firstName", required = false, defaultValue = "") String firstName,
       @RequestParam(value = "lastName", required = false, defaultValue = "") String lastName,
       @RequestParam(value = "gender", required = false, defaultValue = "M") String sex,
@@ -67,6 +69,8 @@ public class EmployeeController extends AuthenticatedResourceController {
       String phoneCode,
       Model model) {
     List<Employee> employees = service.getEmployeesByCriterias(
+        page,
+        pageSize,
         firstName,
         lastName,
         role,
@@ -121,6 +125,8 @@ public class EmployeeController extends AuthenticatedResourceController {
   @GetMapping("/toCsv")
   public void getCsv
       (
+          @RequestParam("page") Integer page,
+          @RequestParam("pageSize") Integer pageSize,
           @RequestParam(value = "firstName", required = false, defaultValue = "") String firstName,
           @RequestParam(value = "lastName", required = false, defaultValue = "") String lastName,
           @RequestParam(value = "gender", required = false, defaultValue = "M") String sex,
@@ -143,6 +149,8 @@ public class EmployeeController extends AuthenticatedResourceController {
           String phoneCode,
           HttpServletResponse response) {
     List<Employee> employees = service.getEmployeesByCriterias(
+        page,
+        pageSize,
         firstName,
         lastName,
         role,

@@ -30,6 +30,8 @@ public class EmployeeService {
   private final EmployeeRepository repository;
 
   public List<Employee> getEmployeesByCriterias(
+      Integer page,
+      Integer pageSize,
       String firstName,
       String lastName,
       String role,
@@ -41,7 +43,10 @@ public class EmployeeService {
       String phoneCode,
       String sortAttribute,
       Sort.Direction sortDirection) {
-    Pageable pageable = PageRequest.of(0, 10, sortDirection, sortAttribute);
+    Pageable pageable =
+        PageRequest.of((page == null || page <= 0) ? 0 : page - 1,
+            (pageSize == null || pageSize <= 0) ? 10 : pageSize,
+            sortDirection, sortAttribute);
     var now = LocalDate.now();
     return repository.findAllByCriterias(
             firstName,
