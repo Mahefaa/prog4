@@ -155,6 +155,8 @@
         <label th:text="'Departure Date to'" for="departureDateIntervalEnd"></label>
         <input type="date" name="departureDateIntervalEnd" id="departureDateIntervalEnd"/>
 
+        <label th:text="phoneCode" for="phoneCode"></label>
+        <input type="text" name="phoneCode" id="phoneCode"/>
 
         <button type="submit" class="btnSearch">Filter</button>
     </form>
@@ -198,7 +200,8 @@
             <td th:text="${employee.cnaps}"/>
             <td>
                 <ul>
-                    <li th:each="phone : ${employee.phones}" th:text="${'+'+phone.phone.code} + ${phone.phone.phoneNumber}"></li>
+                    <li th:each="phone : ${employee.phones}"
+                        th:text="${'+'+phone.phone.code} +' '+ ${phone.phone.phoneNumber}"></li>
                 </ul>
             </td>
             <td th:text="${employee.nic.id}"/>
@@ -221,7 +224,8 @@
         <p th:text="${company.rcs}"></p>
         <p>
             Phone Numbers:
-            <span th:each="phone : ${company.phones}" th:text="${phone.phone.phoneNumber} + ' '"></span>
+            <span th:each="phone : ${company.phones}"
+                  th:text="${'+'+phone.phone.code+' '+phone.phone.phoneNumber} + ' '"></span>
         </p>
     </div>
 </footer>

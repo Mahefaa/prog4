@@ -73,6 +73,17 @@
             background-color: #c82333;
         }
     </style>
+    <style>
+        #phoneNumber-fields .phoneNumberContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        #phoneNumber-fields .phoneNumberContainer input, label {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <header>Update Employee</header>
@@ -155,12 +166,15 @@
             <tr>
                 <td><label>Phone Numbers</label></td>
                 <td id="phoneNumber-fields">
-                    <input th:field="*{phones[0].phone.id}" hidden/>
-                    <label for="phoneCode">CODE</label><input type="text" id="phoneCode" th:field="*{phones[0].phone.code}" required/>
-                    <label>
-                        NUMBER
-                        <input type="text" th:field="*{phones[0].phone.phoneNumber}" required/>
-                    </label>
+                    <div class="phoneNumberContainer">
+                        <input th:field="*{phones[0].phone.id}" hidden/>
+                        <label for="phoneCode" th:text="CODE"></label><input type="text" id="phoneCode"
+                                                                             th:field="*{phones[0].phone.code}"
+                                                                             required/>
+                        <label for="phoneNumber" th:text="Number"></label><input type="text" id="phoneNumber"
+                                                                                 th:field="*{phones[0].phone.phoneNumber}"
+                                                                                 required/>
+                    </div>
                 </td>
                 <td>
                     <button type="button" class="add-button" onclick="addPhoneNumber()">Add Phone Number</button>
@@ -192,23 +206,39 @@
     function addPhoneNumber() {
         const phoneInput = document.createElement("input");
         const phoneInputLabel = document.createElement("label");
-        phoneInputLabel.setAttribute("for", "phoneNumber"+phoneCount)
-        phoneInput.appendChild("CODE")
+        const phoneNumberId = "phoneNumber" + phoneCount;
+
+        phoneInputLabel.setAttribute("for", phoneNumberId)
         phoneInput.setAttribute("type", "text");
-        phoneInput.setAttribute("id", "phoneNumber" + phoneCount);
+        phoneInput.setAttribute("id", phoneNumberId);
         phoneInput.setAttribute("name", "phones[" + phoneCount + "].phone.phoneNumber");
         phoneInput.setAttribute("required", "");
+
+        phoneInputLabel.htmlFor = phoneNumberId;
+        phoneInputLabel.innerText = phoneNumberId;
+
         const phoneCodeInput = document.createElement("input");
         const phoneCodeLabel = document.createElement("label");
+        const phoneCodeId = "phoneCode" + phoneCount;
+
         phoneCodeInput.setAttribute("type", "text");
-        phoneCodeInput.setAttribute("id", "phoneCode" + phoneCount);
-        phoneCodeInput.setAttribute("name", "phones[" + phoneCount + "].code");
+        phoneCodeInput.setAttribute("id", phoneCodeId);
+        phoneCodeInput.setAttribute("name", "phones[" + phoneCount + "].phone.code");
         phoneCodeInput.setAttribute("required", "");
-        document.getElementById("phoneNumber-fields")
-            .appendChild(phoneCodeLabel)
-            .appendChild(phoneCodeInput)
-            .appendChild(phoneInputLabel)
-            .appendChild(phoneInput);
+
+        phoneCodeLabel.htmlFor = phoneCodeId;
+        phoneCodeLabel.innerText = phoneCodeId;
+
+        const phoneField = document.getElementById("phoneNumber-fields");
+        const phoneNumberContainer = document.createElement("div");
+
+        phoneNumberContainer.className = "phoneNumberContainer";
+        phoneNumberContainer.appendChild(phoneCodeLabel);
+        phoneNumberContainer.appendChild(phoneCodeInput);
+        phoneNumberContainer.appendChild(phoneInputLabel)
+        phoneNumberContainer.appendChild(phoneInput);
+        phoneField.appendChild(phoneNumberContainer);
+
         phoneCount++;
     }
 </script>

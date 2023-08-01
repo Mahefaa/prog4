@@ -110,7 +110,7 @@
             <p><strong>CNAPS:</strong> <span th:text="${employee.cnaps}"></span></p>
             <p><strong>Phone Number(s):</strong></p>
             <ul>
-                <li th:each="phone : ${employee.phones}" th:text="${'+'+phone.phone.code} + ${phone.phone.phoneNumber}"></li>
+                <li th:each="phone : ${employee.phones}" th:text="${'+'+phone.phone.code} + ' '+${phone.phone.phoneNumber}"></li>
             </ul>
             <p><strong>NIC ID:</strong> <span th:text="${employee.nic.id}"></span></p>
         </div>
