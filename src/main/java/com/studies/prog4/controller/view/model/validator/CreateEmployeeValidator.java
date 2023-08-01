@@ -1,6 +1,7 @@
 package com.studies.prog4.controller.view.model.validator;
 
 import com.studies.prog4.controller.view.model.CrupdateEmployee;
+import com.studies.prog4.controller.view.model.exception.BadRequestException;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class CreateEmployeeValidator implements Consumer<CrupdateEmployee> {
       sb.append("Employee cannot be born after today");
     }
     if (!sb.isEmpty()) {
-      throw new RuntimeException(sb.toString());
+      throw new BadRequestException(sb.toString());
     }
   }
 }
