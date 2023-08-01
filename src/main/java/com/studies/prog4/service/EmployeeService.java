@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class EmployeeService {
   public static final LocalDate DEFAULT_START_DATE = LocalDate.ofYearDay(1970, 1);
+  public static final LocalDate DEFAULT_END_DATE = LocalDate.ofYearDay(2070, 365);
 
   private final EmployeeEntityMapper mapper;
   private final EmployeeRepository repository;
@@ -47,7 +48,6 @@ public class EmployeeService {
         PageRequest.of((page == null || page <= 0) ? 0 : page - 1,
             (pageSize == null || pageSize <= 0) ? 10 : pageSize,
             sortDirection, sortAttribute);
-    var now = LocalDate.now();
     return repository.findAllByCriterias(
             firstName,
             lastName,
@@ -55,9 +55,9 @@ public class EmployeeService {
             role,
             phoneCode,
             hiringDateIntervalBegin != null ? hiringDateIntervalBegin : DEFAULT_START_DATE,
-            hiringDateIntervalEnd != null ? hiringDateIntervalEnd : now,
+            hiringDateIntervalEnd != null ? hiringDateIntervalEnd : DEFAULT_END_DATE,
             departureDateIntervalBegin != null ?  departureDateIntervalBegin: DEFAULT_START_DATE,
-            departureDateIntervalEnd != null ? departureDateIntervalEnd : now,
+            departureDateIntervalEnd != null ? departureDateIntervalEnd : DEFAULT_END_DATE,
             pageable
         )
         .stream()
