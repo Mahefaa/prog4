@@ -40,7 +40,7 @@ public class EmployeeService {
       LocalDate hiringDateIntervalEnd,
       LocalDate departureDateIntervalBegin,
       LocalDate departureDateIntervalEnd,
-      String phoneCode,
+      Integer phoneCode,
       String sortAttribute,
       Sort.Direction sortDirection) {
     Pageable pageable =

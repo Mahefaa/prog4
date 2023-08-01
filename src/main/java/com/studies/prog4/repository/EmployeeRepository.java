@@ -22,7 +22,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
       String lastName,
       String sex,
       String role,
-      String phoneCode,
+      Integer phoneCode,
       LocalDate hiringDateIntervalBegin,
       LocalDate hiringDateIntervalEnd,
       LocalDate departureDateIntervalBegin,

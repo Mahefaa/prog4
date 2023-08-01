@@ -66,7 +66,7 @@ public class EmployeeController extends AuthenticatedResourceController {
       @RequestParam(value = "sortOrder", required = false, defaultValue = "ASC")
       Sort.Direction sortDirection,
       @RequestParam(value = "phoneCode", required = false)
-      String phoneCode,
+      Integer phoneCode,
       Model model) {
     List<Employee> employees = service.getEmployeesByCriterias(
         page,
@@ -146,7 +146,7 @@ public class EmployeeController extends AuthenticatedResourceController {
           @RequestParam(value = "sortOrder", required = false, defaultValue = "ASC")
           Sort.Direction sortDirection,
           @RequestParam(value = "phoneCode", required = false)
-          String phoneCode,
+          Integer phoneCode,
           HttpServletResponse response) {
     List<Employee> employees = service.getEmployeesByCriterias(
         page,

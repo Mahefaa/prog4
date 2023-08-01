@@ -1,0 +1,1 @@
+alter table phone alter column code type integer using code::integer

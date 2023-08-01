@@ -29,5 +29,5 @@ public class Phone {
 
   @Column(unique = true, nullable = false)
   private String phoneNumber;
-  private String code;
+  private Integer code;
 }
