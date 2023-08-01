@@ -63,6 +63,8 @@ public class EmployeeController extends AuthenticatedResourceController {
       String sortAttribute,
       @RequestParam(value = "sortOrder", required = false, defaultValue = "ASC")
       Sort.Direction sortDirection,
+      @RequestParam(value = "phoneCode", required = false)
+      String phoneCode,
       Model model) {
     List<Employee> employees = service.getEmployeesByCriterias(
         firstName,
@@ -73,6 +75,7 @@ public class EmployeeController extends AuthenticatedResourceController {
         hiringDateIntervalEnd,
         departureDateIntervalBegin,
         departureDateIntervalEnd,
+        phoneCode,
         sortAttribute,
         sortDirection
     );
@@ -136,6 +139,8 @@ public class EmployeeController extends AuthenticatedResourceController {
           String sortAttribute,
           @RequestParam(value = "sortOrder", required = false, defaultValue = "ASC")
           Sort.Direction sortDirection,
+          @RequestParam(value = "phoneCode", required = false)
+          String phoneCode,
           HttpServletResponse response) {
     List<Employee> employees = service.getEmployeesByCriterias(
         firstName,
@@ -146,6 +151,7 @@ public class EmployeeController extends AuthenticatedResourceController {
         hiringDateIntervalEnd,
         departureDateIntervalBegin,
         departureDateIntervalEnd,
+        phoneCode,
         sortAttribute,
         sortDirection
     );

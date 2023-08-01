@@ -1,5 +1,6 @@
 package com.studies.prog4.service;
 
+import com.studies.prog4.controller.view.model.exception.NotFoundException;
 import com.studies.prog4.model.Employee;
 import com.studies.prog4.repository.EmployeeRepository;
 import com.studies.prog4.repository.model.EmployeePhone;
@@ -13,12 +14,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class EmployeeService {
   public static final LocalDate DEFAULT_START_DATE = LocalDate.ofYearDay(1970, 1);
@@ -35,6 +38,7 @@ public class EmployeeService {
       LocalDate hiringDateIntervalEnd,
       LocalDate departureDateIntervalBegin,
       LocalDate departureDateIntervalEnd,
+      String phoneCode,
       String sortAttribute,
       Sort.Direction sortDirection) {
     Pageable pageable = PageRequest.of(0, 10, sortDirection, sortAttribute);
@@ -44,6 +48,7 @@ public class EmployeeService {
             lastName,
             sex,
             role,
+            phoneCode,
             hiringDateIntervalBegin != null ? hiringDateIntervalBegin : DEFAULT_START_DATE,
             hiringDateIntervalEnd != null ? hiringDateIntervalEnd : now,
             departureDateIntervalBegin != null ? hiringDateIntervalBegin : DEFAULT_START_DATE,
@@ -57,7 +62,7 @@ public class EmployeeService {
 
   public Employee getById(UUID id) {
     return mapper.toDomain(repository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Employee.id=" + id + " not found.")));
+        .orElseThrow(() -> new NotFoundException("Employee.id=" + id + " not found.")));
   }
 
   public Employee saveEmployee(Employee toSave) {
