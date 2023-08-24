@@ -8,7 +8,14 @@
     <script th:src="@{/scripts/bootstrap.bundle.min.js}" defer></script>
 </head>
 <body>
-<header th:replace="~{components/navbar.html :: navbar('show / ' + ${eId})}"></header>
+<header>
+    <div th:replace="~{components/navbar.html :: navbar('show / ' + ${eId})}"></div>
+    <div>
+        <form th:action="@{/server/employee/show/{eId}/toPdf(eId=${employee.id})}">
+            <button class="btn btn-success" type="submit">export</button>
+        </form>
+    </div>
+</header>
 <div class="container-fluid row text-center">
     <div class="col-12 d-flex justify-content-start mb-5 align-items-center">
         <img th:src="${employee.stringImage}" alt="no image">
